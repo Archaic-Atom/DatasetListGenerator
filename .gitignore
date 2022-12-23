@@ -1,0 +1,10 @@
+.DS_Store
+
+/*__pycache__*/
+*.pyc
+sftp-config*.json
+
+dist/
+build/
+
+*.spec
