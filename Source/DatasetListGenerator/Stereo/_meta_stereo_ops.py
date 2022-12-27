@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from Template import GenListTempalte
+from DatasetListGenerator.Template import GenListTempalte
 
 
 class MetaStereoOps(GenListTempalte):

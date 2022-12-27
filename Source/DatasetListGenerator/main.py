@@ -1,4 +1,4 @@
-from SysBasic import Application
+from DatasetListGenerator.SysBasic import Application
 
 
 def main() -> None:

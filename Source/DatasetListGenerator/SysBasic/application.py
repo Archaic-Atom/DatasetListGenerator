@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from Stereo import stereo_dataset_selection
+from DatasetListGenerator.Stereo import stereo_dataset_selection
 from .args_parser import ArgsParser
 
 

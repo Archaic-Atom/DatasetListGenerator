@@ -1,0 +1,27 @@
+  package:
+    name: datasetlistgenerator
+    version: 0.0.1
+
+  source:
+    path: ./
+
+  build:
+    number: 0
+
+  requirements:
+    build:
+      - python
+      - setuptools
+    run:
+      - python
+
+  test:
+    commands:
+      - DatasetListGenerator --help
+
+  about:
+    home: https://github.com/Archaic-Atom/JackFramework
+    license: MIT
+    summary: the dataset list generator
+    description: the dataset list generator
+
