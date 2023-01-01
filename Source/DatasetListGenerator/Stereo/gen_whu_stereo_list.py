@@ -15,16 +15,12 @@ class WHUStereoList(MetaStereoOps):
         self._val_list = 'whu_stereo_val_list.csv'
         self._testing_list = 'whu_stereo_testing_list.csv'
 
-    def _write_title(self, fd_file: object) -> None:
-        self.write_file(fd_file, 'left_img,right_img,gt_disp')
-
     def _get_file_folder(self, root_path: str) -> tuple:
         return root_path + '/left/', root_path + '/right/', root_path + '/disp/'
 
     def _gen_list(self, root_path: str, save_path: object) -> None:
         file_num, off_set = 0, 1
-        fd_file = self.open_file(save_path)
-        self._write_title(fd_file)
+        fd_file = self._open_file(save_path)
 
         left_img_folder, right_img_folder, disp_folder = self._get_file_folder(root_path)
         left_files = glob.glob(os.path.join(left_img_folder, '*.tiff'))

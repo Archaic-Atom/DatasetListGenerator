@@ -14,11 +14,6 @@ class CreStereoList(MetaStereoOps):
         super().__init__(dataset_folder_path, save_folder_path)
         self._training_list = 'cretereo_training_list.csv'
 
-    def _open_file(self, file_path: str) -> object:
-        fd_file = self.open_file(file_path)
-        self.write_file(fd_file, 'left_img,right_img,gt_disp')
-        return fd_file
-
     @staticmethod
     def _get_file_path(root_path: str, file_name: str) -> tuple:
         left_img_path = os.path.join(root_path, file_name + CreStereoList.LEFT_IMG_NAME)

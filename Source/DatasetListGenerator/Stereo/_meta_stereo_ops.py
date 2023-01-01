@@ -18,3 +18,8 @@ class MetaStereoOps(GenListTempalte):
         if is_training and (not os.path.exists(disp_path)):
             res = False
         return res
+
+    def _open_file(self, file_path: str) -> object:
+        fd_file = self.open_file(file_path)
+        self.write_file(fd_file, 'left_img,right_img,gt_disp')
+        return fd_file

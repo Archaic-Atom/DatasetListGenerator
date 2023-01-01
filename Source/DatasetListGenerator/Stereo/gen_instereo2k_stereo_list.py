@@ -11,27 +11,12 @@ class GenInstereo2KList(MetaStereoOps):
         self._save_testing_list_path = os.path.join(
             save_folder_path, 'instereo2K_testing_list.csv')
 
-    def _open_file(self, file_path: str) -> object:
-        fd_file = self.open_file(file_path)
-        self.write_file(fd_file, 'left_img,right_img,gt_disp')
-        return fd_file
-
     @staticmethod
     def _get_file_path(folder_path: str, img_folder: str) -> tuple:
         left_img_path = os.path.join(folder_path, img_folder, 'left.png')
         right_img_path = os.path.join(folder_path, img_folder, 'right.png')
         disp_path = os.path.join(folder_path, img_folder, 'left_disp.png')
         return left_img_path, right_img_path, disp_path
-
-    @staticmethod
-    def _check_file_path(left_img_path: str, right_img_path: str,
-                         disp_path: str, is_training: bool) -> bool:
-        res = True
-        if (not os.path.exists(left_img_path)) and (not os.path.exists(right_img_path)):
-            res = False
-        if is_training and (not os.path.exists(disp_path)):
-            res = False
-        return res
 
     def _gen_list(self, save_path: str, sub_folder_list: list, is_training: bool) -> int:
         file_num, off_set = 0, 1
