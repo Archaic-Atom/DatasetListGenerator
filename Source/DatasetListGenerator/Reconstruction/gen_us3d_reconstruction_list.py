@@ -2,20 +2,24 @@
 import os
 import glob
 import random
-from ._meta_stereo_ops import MetaStereoOps
+from ._meta_reconstruction_ops import MetaStereoOps
 
 
-class US3DStereoList(MetaStereoOps):
+class US3DReconstructionList(MetaStereoOps):
     TEST_FOLDER = 'Track_Test'
     TRAIN_FOLDER = 'Track_Train'
-    TRACK_FORMAT = ['*LEFT_RGB*.tif', 'LEFT_RGB', 'RIGHT_RGB.tif', 'LEFT_DSP.tif']
+    TRACK_FORMAT = ['*LEFT_RGB*.tif', 'LEFT_RGB', 'RIGHT_RGB.tif']
     VAL_NUM = 50
 
     def __init__(self, dataset_folder_path: str, save_folder_path: str) -> None:
         super().__init__(dataset_folder_path, save_folder_path)
-        self._training_list = 'us3d_stereo_training_list.csv'
-        self._val_list = 'us3d_stereo_val_list.csv'
-        self._testing_list = 'us3d_stereo_testing_list.csv'
+        self._training_list = 'us3d_reconstruction_training_list.csv'
+        self._val_list = 'us3d_reconstruction_val_list.csv'
+        self._testing_list = 'us3d_reconstruction_testing_list.csv'
+
+    def _write_file(self, path: str, fd_file: object) -> None:
+        if self._check_file_path(path):
+            self.write_file(fd_file, path)
 
     def _gen_training_list(self) -> None:
         file_num, off_set = 0, 1
@@ -28,15 +32,10 @@ class US3DStereoList(MetaStereoOps):
             left_name = os.path.basename(left_file_path)
             start = left_name.find(self.TRACK_FORMAT[1])
             right_file_path = os.path.join(root_path, left_name[0:start] + self.TRACK_FORMAT[2])
-            disp_file_path = os.path.join(root_path, left_name[0:start] + self.TRACK_FORMAT[3])
+            fd_file = val_fd_file if idx in val_list else training_fd_file
+            self._write_file(left_file_path, fd_file)
+            self._write_file(right_file_path, fd_file)
 
-            if self._check_file_path(left_file_path, right_file_path, disp_file_path):
-                if idx in val_list:
-                    self.write_file(training_fd_file,
-                                    left_file_path + ',' + right_file_path + ',' + disp_file_path)
-                else:
-                    self.write_file(val_fd_file,
-                                    left_file_path + ',' + right_file_path + ',' + disp_file_path)
             file_num = file_num + off_set
         self.close_file(training_fd_file)
         self.close_file(val_fd_file)
@@ -51,11 +50,8 @@ class US3DStereoList(MetaStereoOps):
             left_name = os.path.basename(left_file_path)
             start = left_name.find(self.TRACK_FORMAT[1])
             right_file_path = os.path.join(root_path, left_name[0:start] + self.TRACK_FORMAT[2])
-            disp_file_path = 'None'
-
-            if self._check_file_path(left_file_path, right_file_path, disp_file_path, False):
-                self.write_file(fd_file,
-                                left_file_path + ',' + right_file_path + ',' + disp_file_path)
+            self._write_file(left_file_path, fd_file)
+            self._write_file(right_file_path, fd_file)
             file_num = file_num + off_set
         self.close_file(fd_file)
         print('total testing file: ', file_num)

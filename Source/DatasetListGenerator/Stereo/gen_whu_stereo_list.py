@@ -15,7 +15,8 @@ class WHUStereoList(MetaStereoOps):
         self._val_list = 'whu_stereo_val_list.csv'
         self._testing_list = 'whu_stereo_testing_list.csv'
 
-    def _get_file_folder(self, root_path: str) -> tuple:
+    @staticmethod
+    def _get_file_folder(root_path: str) -> tuple:
         return root_path + '/left/', root_path + '/right/', root_path + '/disp/'
 
     def _gen_list(self, root_path: str, save_path: object) -> None:
