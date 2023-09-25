@@ -17,7 +17,7 @@ class WHUStereoList(MetaStereoOps):
 
     @staticmethod
     def _get_file_folder(root_path: str) -> tuple:
-        return root_path + '/left/', root_path + '/right/', root_path + '/disp/'
+        return f'{root_path}/left/', f'{root_path}/right/', f'{root_path}/disp/'
 
     def _gen_list(self, root_path: str, save_path: object) -> None:
         file_num, off_set = 0, 1
@@ -34,8 +34,9 @@ class WHUStereoList(MetaStereoOps):
             disp_file_path = os.path.join(disp_folder, left_file_name.replace('left', 'disparity'))
 
             if self._check_file_path(left_file_path, right_file_path, disp_file_path):
-                self.write_file(fd_file,
-                                left_file_path + ',' + right_file_path + ',' + disp_file_path)
+                self.write_file(
+                    fd_file, f'{left_file_path},{right_file_path},{disp_file_path}'
+                )
             file_num = file_num + off_set
         self.close_file(fd_file)
         print('total file: ', file_num)

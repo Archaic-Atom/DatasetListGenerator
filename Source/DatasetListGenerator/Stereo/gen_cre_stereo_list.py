@@ -35,11 +35,10 @@ class CreStereoList(MetaStereoOps):
 
                 if not self._check_file_path(
                         left_img_path, right_img_path, disp_path):
-                    print(left_img_path + ' is not exists')
+                    print(f'{left_img_path} is not exists')
                     break
 
-                self.write_file(
-                    fd_file, left_img_path + ',' + right_img_path + ',' + disp_path)
+                self.write_file(fd_file, f'{left_img_path},{right_img_path},{disp_path}')
                 file_num = file_num + off_set
         self.close_file(fd_file)
         return file_num

@@ -11,10 +11,7 @@ class MetaStereoOps(GenListTempalte):
 
     @staticmethod
     def _check_file_path(img_path: str) -> bool:
-        res = True
-        if not os.path.exists(img_path):
-            res = False
-        return res
+        return bool(os.path.exists(img_path))
 
     def _open_file(self, file_path: str) -> object:
         fd_file = self.open_file(file_path)

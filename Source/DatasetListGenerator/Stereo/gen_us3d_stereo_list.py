@@ -22,21 +22,23 @@ class US3DStereoList(MetaStereoOps):
         training_fd_file = self._open_file(os.path.join(self.save_folder_path, self._training_list))
         val_fd_file = self._open_file(os.path.join(self.save_folder_path, self._val_list))
         root_path = os.path.join(self.dataset_folder_path, self.TRAIN_FOLDER)
-        files = glob.glob(root_path + '/' + self.TRACK_FORMAT[0])
-        val_list = random.sample(range(0, len(files)), self.VAL_NUM)
+        files = glob.glob(f'{root_path}/{self.TRACK_FORMAT[0]}')
+        val_list = random.sample(range(len(files)), self.VAL_NUM)
         for idx, left_file_path in enumerate(files):
             left_name = os.path.basename(left_file_path)
             start = left_name.find(self.TRACK_FORMAT[1])
-            right_file_path = os.path.join(root_path, left_name[0:start] + self.TRACK_FORMAT[2])
-            disp_file_path = os.path.join(root_path, left_name[0:start] + self.TRACK_FORMAT[3])
+            right_file_path = os.path.join(
+                root_path, left_name[:start] + self.TRACK_FORMAT[2])
+            disp_file_path = os.path.join(
+                root_path, left_name[:start] + self.TRACK_FORMAT[3])
 
             if self._check_file_path(left_file_path, right_file_path, disp_file_path):
                 if idx in val_list:
                     self.write_file(training_fd_file,
-                                    left_file_path + ',' + right_file_path + ',' + disp_file_path)
+                                    f'{left_file_path},{right_file_path},{disp_file_path}',)
                 else:
                     self.write_file(val_fd_file,
-                                    left_file_path + ',' + right_file_path + ',' + disp_file_path)
+                                    f'{left_file_path},{right_file_path},{disp_file_path}',)
             file_num = file_num + off_set
         self.close_file(training_fd_file)
         self.close_file(val_fd_file)
@@ -46,16 +48,19 @@ class US3DStereoList(MetaStereoOps):
         file_num, off_set = 0, 1
         fd_file = self._open_file(os.path.join(self.save_folder_path, self._testing_list))
         root_path = os.path.join(self.dataset_folder_path, self.TEST_FOLDER)
-        files = glob.glob(root_path + '/' + self.TRACK_FORMAT[0])
-        for _, left_file_path in enumerate(files):
+        files = glob.glob(f'{root_path}/{self.TRACK_FORMAT[0]}')
+        disp_file_path = 'None'
+
+        for left_file_path in files:
             left_name = os.path.basename(left_file_path)
             start = left_name.find(self.TRACK_FORMAT[1])
-            right_file_path = os.path.join(root_path, left_name[0:start] + self.TRACK_FORMAT[2])
-            disp_file_path = 'None'
-
+            right_file_path = os.path.join(
+                root_path, left_name[:start] + self.TRACK_FORMAT[2]
+            )
             if self._check_file_path(left_file_path, right_file_path, disp_file_path, False):
-                self.write_file(fd_file,
-                                left_file_path + ',' + right_file_path + ',' + disp_file_path)
+                self.write_file(
+                    fd_file, f'{left_file_path},{right_file_path},{disp_file_path}'
+                )
             file_num = file_num + off_set
         self.close_file(fd_file)
         print('total testing file: ', file_num)

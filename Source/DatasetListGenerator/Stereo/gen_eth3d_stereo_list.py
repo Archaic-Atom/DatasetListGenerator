@@ -43,7 +43,7 @@ class ETH3DStereoList(MetaStereoOps):
             disp_path = os.path.join(self.dataset_folder_path, folder_item, 'disp0GT.pfm')
 
             if self._check_file_path(left_img_path, right_img_path, disp_path):
-                self.write_file(fd_file, left_img_path + ',' + right_img_path + ',' + disp_path)
+                self.write_file(fd_file, f'{left_img_path},{right_img_path},{disp_path}')
             else:
                 break
 
@@ -60,7 +60,7 @@ class ETH3DStereoList(MetaStereoOps):
             disp_path = None
 
             if self._check_file_path(left_img_path, right_img_path, disp_path, is_training=False):
-                self.write_file(fd_file, left_img_path + ',' + right_img_path + ',' + disp_path)
+                self.write_file(fd_file, f'{left_img_path},{right_img_path},{disp_path}')
             else:
                 break
 

@@ -29,8 +29,18 @@ class GenListTempalte(object):
         return open(path, 'a')
 
     def write_file(self, fd_file: object, data_str: str) -> None:
-        fd_file.write(str(data_str) + '\n')
+        fd_file.write(data_str + '\n')
         fd_file.flush()
 
     def close_file(self, fd_file: object) -> None:
         fd_file.close()
+
+    def get_folders_path(self, path: str) -> list:
+        folders, offset = [], 1
+        files = os.listdir(path)
+        for file in files:
+            folder_path = os.path.join(path, file)
+            if os.path.isdir(folder_path):
+                pos = folder_path.rfind('/') + offset
+                folders.append(folder_path[pos:])
+        return folders

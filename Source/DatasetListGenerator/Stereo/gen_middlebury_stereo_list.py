@@ -31,7 +31,7 @@ class MiddleburyStereoList(MetaStereoOps):
                 self.dataset_folder_path, 'trainingH/', folder_item, 'disp0GT.pfm')
 
             if self._check_file_path(left_img_path, right_img_path, disp_path):
-                self.write_file(fd_file, left_img_path + ',' + right_img_path + ',' + disp_path)
+                self.write_file(fd_file, f'{left_img_path},{right_img_path},{disp_path}')
             else:
                 break
 
@@ -42,13 +42,13 @@ class MiddleburyStereoList(MetaStereoOps):
     def _gen_testing_list(self) -> None:
         file_num, off_set = 0, 1
         fd_file = self._open_file(os.path.join(self.save_folder_path, self._testing_list))
+        disp_path = 'None'
+
         for folder_item in self.VAL_FOLDER_LIST:
             left_img_path = os.path.join(self.dataset_folder_path, 'testH/', folder_item, 'im0.png')
             right_img_path = os.path.join(self.dataset_folder_path, 'testH/', folder_item, 'im1.png')
-            disp_path = 'None'
-
             if self._check_file_path(left_img_path, right_img_path, disp_path, is_training=False):
-                self.write_file(fd_file, left_img_path + ',' + right_img_path + ',' + disp_path)
+                self.write_file(fd_file, f'{left_img_path},{right_img_path},{disp_path}')
             else:
                 break
 

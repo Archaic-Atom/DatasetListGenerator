@@ -33,8 +33,7 @@ class GenInstereo2KList(MetaStereoOps):
                         left_img_path, right_img_path, disp_path, is_training):
                     break
 
-                self.write_file(
-                    fd_file, left_img_path + ',' + right_img_path + ',' + disp_path)
+                self.write_file(fd_file, f'{left_img_path},{right_img_path},{disp_path}')
                 file_num = file_num + off_set
         self.close_file(fd_file)
         return file_num

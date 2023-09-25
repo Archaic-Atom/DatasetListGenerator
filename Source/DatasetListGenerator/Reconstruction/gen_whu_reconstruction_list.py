@@ -16,7 +16,7 @@ class WHUReconstructionList(MetaStereoOps):
         self._testing_list = 'whu_reconstruction_testing_list.csv'
 
     def _get_file_folder(self, root_path: str) -> tuple:
-        return root_path + '/left/', root_path + '/right/'
+        return f'{root_path}/left/', f'{root_path}/right/'
 
     def _gen_list(self, root_path: str, save_path: object) -> None:
         file_num, off_set = 0, 1
