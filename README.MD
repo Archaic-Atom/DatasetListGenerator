@@ -25,12 +25,10 @@ This framework is only used in Linux.
 $ ./bulid.sh
 ```
 
-
 2. **How to use the DataloaderListGenertor**  
 ```
 $ DatasetListGenerator --task "stereo matching" --dataset "SceneFlow" --dataset_folder_path /data/datasets/StereoMatching/SceneFlow/ --save_folder_path ./
 ```
-
 
 3. **parameter information**
    * **--task**  
