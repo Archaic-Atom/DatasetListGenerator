@@ -16,19 +16,19 @@ class MiddleburyStereoList(MetaStereoOps):
 
     def __init__(self, dataset_folder_path: str, save_folder_path: str) -> None:
         super().__init__(dataset_folder_path, save_folder_path)
-        self._training_list = 'eth3d_stereo_training_list.csv'
-        self._testing_list = 'eth3d_stereo_testing_list.csv'
+        self._training_list = 'middlebury14_Q_stereo_training_list.csv'
+        self._testing_list = 'middlebury14_Q_stereo_testing_list.csv'
 
     def _gen_training_list(self) -> None:
         file_num, off_set = 0, 1
         fd_file = self._open_file(os.path.join(self.save_folder_path, self._training_list))
         for folder_item in self.TRAIN_FOLDER_LIST:
             left_img_path = os.path.join(
-                self.dataset_folder_path, 'trainingH/', folder_item, 'im0.png')
+                self.dataset_folder_path, 'trainingQ/', folder_item, 'im0.png')
             right_img_path = os.path.join(
-                self.dataset_folder_path, 'trainingH/', folder_item, 'im1.png')
+                self.dataset_folder_path, 'trainingQ/', folder_item, 'im1.png')
             disp_path = os.path.join(
-                self.dataset_folder_path, 'trainingH/', folder_item, 'disp0GT.pfm')
+                self.dataset_folder_path, 'trainingQ/', folder_item, 'disp0GT.pfm')
 
             if self._check_file_path(left_img_path, right_img_path, disp_path):
                 self.write_file(fd_file, f'{left_img_path},{right_img_path},{disp_path}')
@@ -45,8 +45,8 @@ class MiddleburyStereoList(MetaStereoOps):
         disp_path = 'None'
 
         for folder_item in self.VAL_FOLDER_LIST:
-            left_img_path = os.path.join(self.dataset_folder_path, 'testH/', folder_item, 'im0.png')
-            right_img_path = os.path.join(self.dataset_folder_path, 'testH/', folder_item, 'im1.png')
+            left_img_path = os.path.join(self.dataset_folder_path, 'testQ/', folder_item, 'im0.png')
+            right_img_path = os.path.join(self.dataset_folder_path, 'testQ/', folder_item, 'im1.png')
             if self._check_file_path(left_img_path, right_img_path, disp_path, is_training=False):
                 self.write_file(fd_file, f'{left_img_path},{right_img_path},{disp_path}')
             else:
