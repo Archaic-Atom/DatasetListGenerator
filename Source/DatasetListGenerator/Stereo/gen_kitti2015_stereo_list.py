@@ -47,7 +47,7 @@ class KITTI2015StereoList(MetaStereoOps):
 
         for i in range(self.TRAINING_IMG_NUM):
             left_img_path = self._gen_path(self.TESTING_DATA_FOLDER % self.LEFT_FOLDER, i)
-            right_img_path = self._gen_path(self.RIGHT_FOLDER, i)
+            right_img_path = self._gen_path(self.TESTING_DATA_FOLDER % self.RIGHT_FOLDER, i)
             if self._check_file_path(left_img_path, right_img_path, disp_path, is_training=False):
                 self.write_file(fd_file, f'{left_img_path},{right_img_path},{disp_path}')
             else:
