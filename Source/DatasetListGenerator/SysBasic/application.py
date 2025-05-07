@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from DatasetListGenerator.Stereo import stereo_dataset_selection
 from DatasetListGenerator.Reconstruction import reconstruction_dataset_selection
+from DatasetListGenerator.Change import change_detection_dataset_selection
 from .args_parser import ArgsParser
 
 
@@ -23,7 +24,8 @@ class Application(object):
 
     def _get_task_func_dict(self) -> dict:
         return {'stereo matching': stereo_dataset_selection,
-                'reconstruction': reconstruction_dataset_selection}
+                'reconstruction': reconstruction_dataset_selection,
+                'change detection': change_detection_dataset_selection}
 
     def _get_dataset_selection(self, task: str) -> object:
         task_func_dict = self._get_task_func_dict()
